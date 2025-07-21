@@ -1,0 +1,132 @@
+HEADERS:
+Request URL:
+https://api2.tourplanner.tdy-apps.com/action/set-status
+Request Method:
+POST
+Status Code:
+200 OK
+Remote Address:
+3.77.82.98:443
+Referrer Policy:
+strict-origin-when-cross-origin
+access-control-allow-headers:
+Origin, X-Requested-With, Content-Type, Accept, Authorization, X-External-Service
+access-control-allow-methods:
+GET, POST, OPTIONS
+access-control-allow-origin:
+*
+access-control-max-age:
+3600
+cache-control:
+no-cache, no-store
+cache-control:
+no-cache, private
+content-type:
+application/json; charset=UTF-8
+date:
+Mon, 21 Jul 2025 21:56:22 GMT
+expires:
+-1
+p3p:
+CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+pragma:
+no-cache
+server:
+nginx
+set-cookie:
+AWSALB=SZQxlXjBdlnqfKgiEIrIjEKahZFogaKxDssqM39+ZjQKW4oBuN20eaAa+K4DYm4q1IwqI05nd0QLJKwhXWpRU/qM4S7kun8yS4srI5skKKn4hEIeKQweM7zP5vu6; Expires=Mon, 28 Jul 2025 21:56:22 GMT; Path=/
+set-cookie:
+AWSALBCORS=SZQxlXjBdlnqfKgiEIrIjEKahZFogaKxDssqM39+ZjQKW4oBuN20eaAa+K4DYm4q1IwqI05nd0QLJKwhXWpRU/qM4S7kun8yS4srI5skKKn4hEIeKQweM7zP5vu6; Expires=Mon, 28 Jul 2025 21:56:22 GMT; Path=/; SameSite=None; Secure
+strict-transport-security:
+max-age=15768000; includeSubDomains
+x-frame-options:
+deny
+x-preludium-bc:
+11eb62d1-ec85-4f78-98bd-20dd13a32d1b
+x-preludium-et:
+0.066031932830811
+x-preludium-id:
+action-set-status
+x-preludium-ts:
+687eb786
+:authority:
+api2.tourplanner.tdy-apps.com
+:method:
+POST
+:path:
+/action/set-status
+:scheme:
+https
+accept:
+*/*
+accept-encoding:
+gzip, deflate, br, zstd
+accept-language:
+pl,en-US;q=0.9,en;q=0.8,ru;q=0.7
+authorization:
+Bearer 3900e7ec-5f16-475c-8559-e3fc5716f3b5
+content-length:
+88
+content-type:
+application/json; charset=utf-8
+origin:
+https://prod-new.dwqmw7v0jgkrq.amplifyapp.com
+priority:
+u=1, i
+referer:
+https://prod-new.dwqmw7v0jgkrq.amplifyapp.com/
+sec-ch-ua:
+"Chromium";v="134", "Not:A-Brand";v="24", "Opera GX";v="119"
+sec-ch-ua-mobile:
+?0
+sec-ch-ua-platform:
+"Windows"
+sec-fetch-dest:
+empty
+sec-fetch-mode:
+cors
+sec-fetch-site:
+cross-site
+user-agent:
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 OPR/119.0.0.0
+
+
+PAYLOAD:
+{status: {ident: "accepted"}, action: {uuid: "1d6a81d2-aba8-41ae-af80-071fbd04f8fa"}}
+action
+: 
+{uuid: "1d6a81d2-aba8-41ae-af80-071fbd04f8fa"}
+uuid
+: 
+"1d6a81d2-aba8-41ae-af80-071fbd04f8fa"
+status
+: 
+{ident: "accepted"}
+ident
+: 
+"accepted"
+
+
+RESPONSE:
+{
+    "meta": {
+        "id": "action-set-status",
+        "et": 0.06603193283081055,
+        "bc": "11eb62d1-ec85-4f78-98bd-20dd13a32d1b",
+        "ts": "687eb786"
+    },
+    "time": {
+        "date": "2025-07-21 23:56:22.049864",
+        "timezone_type": 3,
+        "timezone": "Europe\/Warsaw"
+    },
+    "status": {
+        "success": true,
+        "code": 200
+    },
+    "data": {
+        "status": {
+            "uuid": "a42348ac-d7db-4e35-b142-e666c0778323"
+        }
+    }
+}

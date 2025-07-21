@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TourPlanner Pro - Stały Bookmarklet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2196F3, #21CBF3);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .bookmarklet-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #2196F3;
+            margin-bottom: 30px;
+        }
+
+        .bookmarklet-section h2 {
+            color: #2196F3;
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-number {
+            background: #2196F3;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .bookmarklet-code {
+            background: #1a1a1a;
+            color: #00ff00;
+            border: 3px solid #2196F3;
+            border-radius: 12px;
+            padding: 25px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            word-break: break-all;
+            max-height: 350px;
+            overflow-y: auto;
+            user-select: all;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .copy-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #2196F3;
+            margin-bottom: 30px;
+        }
+
+        .instructions h3 {
+            color: #2196F3;
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .instructions ol {
+            padding-left: 25px;
+        }
+
+        .instructions li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .features {
+            background: linear-gradient(135deg, #fff3e0, #fce4ec);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #ff9800;
+            margin-bottom: 30px;
+        }
+
+        .features h3 {
+            color: #ff9800;
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 15px;
+        }
+
+        .features li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .tech-note {
+            background: #e8f4fd;
+            border: 1px solid #b3d7f7;
+            color: #0c5460;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+            }
+            .content {
+                padding: 25px;
+            }
+            .header {
+                padding: 30px 20px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 TourPlanner Pro</h1>
+            <p>Stały bookmarklet z automatyczną detekcją tokenu</p>
+            <div class="badge">
+                <span style="margin-right: 8px;">⚡</span>
+                Nie wymaga generatora - działa od razu!
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="warning">
+                <strong>⚠️ Ważne:</strong> Ten bookmarklet automatycznie pobiera Bearer Token z aktywnej sesji TourPlanner. 
+                Musisz być zalogowany do TourPlanner, żeby działał poprawnie.
+            </div>
+
+            <div class="bookmarklet-section">
+                <h2><span class="step-number">1</span>Twój Stały Bookmarklet</h2>
+                <p style="margin-bottom: 20px; color: #666;">Skopiuj poniższy kod - to wszystko czego potrzebujesz:</p>
+                
+                <div class="bookmarklet-code" id="bookmarkletCode">javascript:(function(){if(document.getElementById('tpOverlay'))return;function detectToken(){var performanceEntries=performance.getEntriesByType('resource');var tourPlannerRequests=performanceEntries.filter(function(entry){return entry.name.indexOf('api2.tourplanner.tdy-apps.com')!==-1});var detectedToken=null;if(tourPlannerRequests.length>0){var originalFetch=window.fetch;var originalXHR=window.XMLHttpRequest;window.fetch=function(input,init){if(typeof input==='string'&&input.indexOf('api2.tourplanner.tdy-apps.com')!==-1&&init&&init.headers){var headers=new Headers(init.headers);var authHeader=headers.get('authorization');if(authHeader&&authHeader.indexOf('Bearer ')===0){detectedToken=authHeader.replace('Bearer ','');}}return originalFetch.call(this,input,init)};window.XMLHttpRequest=function(){var xhr=new originalXHR();var originalSetRequestHeader=xhr.setRequestHeader;xhr.setRequestHeader=function(name,value){if(name.toLowerCase()==='authorization'&&value.indexOf('Bearer ')===0){detectedToken=value.replace('Bearer ','');}return originalSetRequestHeader.call(this,name,value)};return xhr};setTimeout(function(){window.fetch=originalFetch;window.XMLHttpRequest=originalXHR;},2000);}function checkSessionStorage(){try{for(var i=0;i<sessionStorage.length;i++){var key=sessionStorage.key(i);var value=sessionStorage.getItem(key);if(value){var tokenMatch=value.match(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i);if(tokenMatch){return tokenMatch[0];}}}}catch(e){}return null}function checkLocalStorage(){try{for(var i=0;i<localStorage.length;i++){var key=localStorage.key(i);var value=localStorage.getItem(key);if(value){var tokenMatch=value.match(/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i);if(tokenMatch){return tokenMatch[0];}}}}catch(e){}return null}return detectedToken||checkSessionStorage()||checkLocalStorage()}var token=detectToken();if(!token){alert('Nie znaleziono tokenu Bearer! Upewnij sie, ze jestes zalogowany do TourPlanner i wykonales jakas akcje.');return;}var apiUrl='https://api2.tourplanner.tdy-apps.com';var overlay=document.createElement('div');overlay.id='tpOverlay';overlay.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:10000;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif';var modal=document.createElement('div');modal.style.cssText='background:white;padding:25px;border-radius:15px;width:90%;max-width:500px;max-height:90%;overflow-y:auto;box-shadow:0 20px 40px rgba(0,0,0,0.3)';modal.innerHTML='<form id="tpForm"><h2 style="margin:0 0 20px 0;color:#2196F3;text-align:center;font-size:24px">TourPlanner Pro</h2><div style="margin-bottom:12px"><label style="display:block;font-weight:bold;margin-bottom:5px">Nazwa akcji:</label><input type="text" id="tpName" required style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:16px" placeholder="Wprowadz nazwe akcji"></div><div style="margin-bottom:12px"><label style="display:block;font-weight:bold;margin-bottom:5px">Region/Terytorium:</label><select id="tpTerr" required style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:16px"><option>Ladowanie...</option></select></div><div style="margin-bottom:12px"><label style="display:block;font-weight:bold;margin-bottom:5px">Event:</label><select id="tpEvent" required style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:16px"><option>Ladowanie...</option></select></div><div style="margin-bottom:15px;position:relative"><label style="display:block;font-weight:bold;margin-bottom:5px">Punkt:</label><input type="text" id="tpPointSearch" placeholder="Najpierw wybierz region i event" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:16px" autocomplete="off" disabled><div id="tpPointDropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:2px solid #ddd;border-top:none;border-radius:0 0 6px 6px;max-height:200px;overflow-y:auto;z-index:1000"></div><input type="hidden" id="tpPoint" required></div><div style="margin-bottom:12px"><label style="display:block;font-weight:bold;margin-bottom:5px">Data:</label><input type="date" id="tpDate" required style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:16px"></div><div style="margin-bottom:12px"><label style="display:block;font-weight:bold;margin-bottom:5px">Godzina rozpoczecia:</label><input type="time" id="tpFromTime" required style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:16px"></div><div style="margin-bottom:12px"><label style="display:block;font-weight:bold;margin-bottom:5px">Godzina zakonczenia:</label><input type="time" id="tpToTime" required style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:16px"><div style="margin-top:5px;font-size:12px;color:#666">Automatycznie ustawiona na +4h, mozesz zmienic</div></div><div style="margin-bottom:15px;position:relative"><label style="display:block;font-weight:bold;margin-bottom:5px">Personel:</label><input type="text" id="tpUserSearch" placeholder="Szukaj personelu..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:16px" autocomplete="off"><div id="tpUserDropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:2px solid #ddd;border-top:none;border-radius:0 0 6px 6px;max-height:200px;overflow-y:auto;z-index:1000"></div><input type="hidden" id="tpUser" required></div><div style="display:grid;grid-template-columns:2fr 1fr;gap:8px"><button type="submit" id="tpSubmit" style="padding:12px;background:#2196F3;color:white;border:none;border-radius:6px;font-size:16px;font-weight:bold;cursor:pointer">Utworz</button><button type="button" id="tpClose" style="padding:12px;background:#666;color:white;border:none;border-radius:6px;font-size:14px;cursor:pointer">Zamknij</button></div></form>';overlay.appendChild(modal);document.body.appendChild(overlay);var closeBtn=document.getElementById('tpClose');closeBtn.onclick=function(){document.body.removeChild(overlay)};overlay.onclick=function(e){if(e.target===overlay){document.body.removeChild(overlay)}};fetch(apiUrl+'/territories',{headers:{Authorization:'Bearer '+token}}).then(function(r){return r.json()}).then(function(data){var terrSelect=document.getElementById('tpTerr');terrSelect.innerHTML='<option value="">Wybierz region...</option>';data.forEach(function(t){terrSelect.innerHTML+='<option value="'+t.id+'">'+t.name+'</option>'})}).catch(function(){alert('Blad ladowania regionow')});fetch(apiUrl+'/events',{headers:{Authorization:'Bearer '+token}}).then(function(r){return r.json()}).then(function(data){var eventSelect=document.getElementById('tpEvent');eventSelect.innerHTML='<option value="">Wybierz event...</option>';data.forEach(function(e){eventSelect.innerHTML+='<option value="'+e.id+'">'+e.name+'</option>'})}).catch(function(){alert('Blad ladowania eventow')});var allPoints=[];document.getElementById('tpTerr').onchange=function(){var terrId=this.value;var eventId=document.getElementById('tpEvent').value;if(terrId&&eventId){fetch(apiUrl+'/points?territoryId='+terrId+'&eventId='+eventId,{headers:{Authorization:'Bearer '+token}}).then(function(r){return r.json()}).then(function(data){allPoints=data;document.getElementById('tpPointSearch').disabled=false;document.getElementById('tpPointSearch').placeholder='Wpisz nazwe punktu...'}).catch(function(){alert('Blad ladowania punktow')})}};document.getElementById('tpEvent').onchange=function(){var eventId=this.value;var terrId=document.getElementById('tpTerr').value;if(terrId&&eventId){fetch(apiUrl+'/points?territoryId='+terrId+'&eventId='+eventId,{headers:{Authorization:'Bearer '+token}}).then(function(r){return r.json()}).then(function(data){allPoints=data;document.getElementById('tpPointSearch').disabled=false;document.getElementById('tpPointSearch').placeholder='Wpisz nazwe punktu...'}).catch(function(){alert('Blad ladowania punktow')})}};document.getElementById('tpPointSearch').oninput=function(){var query=this.value.toLowerCase();var dropdown=document.getElementById('tpPointDropdown');if(query.length<2){dropdown.style.display='none';return}var filtered=allPoints.filter(function(p){return p.name.toLowerCase().indexOf(query)!==-1});dropdown.innerHTML=filtered.map(function(p){return '<div style="padding:8px;cursor:pointer;border-bottom:1px solid #eee" onclick="selectPoint('+p.id+',\\''+p.name+'\\')">'+p.name+'</div>'}).join('');dropdown.style.display=filtered.length?'block':'none'};window.selectPoint=function(id,name){document.getElementById('tpPoint').value=id;document.getElementById('tpPointSearch').value=name;document.getElementById('tpPointDropdown').style.display='none'};fetch(apiUrl+'/users',{headers:{Authorization:'Bearer '+token}}).then(function(r){return r.json()}).then(function(users){var allUsers=users;document.getElementById('tpUserSearch').oninput=function(){var query=this.value.toLowerCase();var dropdown=document.getElementById('tpUserDropdown');if(query.length<2){dropdown.style.display='none';return}var filtered=allUsers.filter(function(u){return u.name.toLowerCase().indexOf(query)!==-1});dropdown.innerHTML=filtered.map(function(u){return '<div style="padding:8px;cursor:pointer;border-bottom:1px solid #eee" onclick="selectUser('+u.id+',\\''+u.name+'\\')">'+u.name+'</div>'}).join('');dropdown.style.display=filtered.length?'block':'none'};window.selectUser=function(id,name){document.getElementById('tpUser').value=id;document.getElementById('tpUserSearch').value=name;document.getElementById('tpUserDropdown').style.display='none'}}).catch(function(){alert('Blad ladowania personelu')});var now=new Date();document.getElementById('tpDate').value=now.toISOString().split('T')[0];var hours=now.getHours();var minutes=now.getMinutes();document.getElementById('tpFromTime').value=(hours<10?'0'+hours:hours)+':'+(minutes<10?'0'+minutes:minutes);var endTime=new Date(now.getTime()+4*60*60*1000);var endHours=endTime.getHours();var endMinutes=endTime.getMinutes();document.getElementById('tpToTime').value=(endHours<10?'0'+endHours:endHours)+':'+(endMinutes<10?'0'+endMinutes:endMinutes);document.getElementById('tpForm').onsubmit=function(e){e.preventDefault();var data={name:document.getElementById('tpName').value,territoryId:document.getElementById('tpTerr').value,eventId:document.getElementById('tpEvent').value,pointId:document.getElementById('tpPoint').value,date:document.getElementById('tpDate').value,fromTime:document.getElementById('tpFromTime').value,toTime:document.getElementById('tpToTime').value,userId:document.getElementById('tpUser').value};fetch(apiUrl+'/actions',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify(data)}).then(function(r){return r.json()}).then(function(result){alert('Akcja utworzona pomyslnie!');document.body.removeChild(overlay)}).catch(function(){alert('Blad podczas tworzenia akcji')})}})();</div>
+                
+                <button class="copy-btn" onclick="copyBookmarklet()">📋 Skopiuj Bookmarklet</button>
+                <div class="success" id="copySuccess">✅ Skopiowano do schowka!</div>
+            </div>
+
+            <div class="instructions">
+                <h3><span class="step-number">2</span>Instrukcja instalacji</h3>
+                <ol>
+                    <li><strong>Skopiuj kod</strong> powyżej (cały tekst w czarnym polu)</li>
+                    <li><strong>Otwórz menedżer zakładek:</strong> Ctrl+Shift+O (Windows) lub Cmd+Shift+O (Mac)</li>
+                    <li><strong>Dodaj nową zakładkę</strong> - kliknij "Dodaj zakładkę" lub "+"</li>
+                    <li><strong>Nazwa:</strong> "TourPlanner Pro" (lub dowolna)</li>
+                    <li><strong>URL/Adres:</strong> Wklej skopiowany kod</li>
+                    <li><strong>Zapisz zakładkę</strong></li>
+                    <li><strong>Użycie:</strong> Idź do TourPlanner, zaloguj się i kliknij swoją zakładkę!</li>
+                </ol>
+            </div>
+
+            <div class="features">
+                <h3><span class="step-number">3</span>Funkcje</h3>
+                <ul>
+                    <li><strong>Automatyczna detekcja tokenu</strong> - nie musisz go podawać ręcznie</li>
+                    <li><strong>Filtrowanie według regionów</strong> - wybieraj tylko potrzebne terytoria</li>
+                    <li><strong>Filtrowanie eventów</strong> - pokazuj tylko wybrane typy akcji</li>
+                    <li><strong>Wyszukiwanie punktów</strong> - szybko znajdź lokalizację</li>
+                    <li><strong>Automatyczne uzupełnianie</strong> - data i godzina ustawiane automatycznie</li>
+                    <li><strong>Wyszukiwanie personelu</strong> - szybki wybór odpowiedzialnej osoby</li>
+                </ul>
+            </div>
+
+            <div class="tech-note">
+                <strong>💡 Jak to działa:</strong><br>
+                Bookmarklet automatycznie skanuje żądania sieciowe w przeglądarce i wyszukuje Bearer Token z aktywnej sesji TourPlanner. 
+                Sprawdza również localStorage i sessionStorage w poszukiwaniu zapisanego tokenu. 
+                To oznacza, że nie musisz już kopiować tokenu z Developer Tools - wszystko dzieje się automatycznie!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyBookmarklet() {
+            const code = document.getElementById('bookmarkletCode').textContent;
+            
+            // Try modern clipboard API first
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showSuccess();
+                }).catch(() => {
+                    fallbackCopy(code);
+                });
+            } else {
+                fallbackCopy(code);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showSuccess();
+            } catch (err) {
+                alert('Nie można skopiować automatycznie. Zaznacz tekst ręcznie i skopiuj (Ctrl+C).');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function showSuccess() {
+            const successDiv = document.getElementById('copySuccess');
+            successDiv.style.display = 'block';
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
